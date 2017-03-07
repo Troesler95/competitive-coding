@@ -1,30 +1,31 @@
-#include <fstream>
 #include <iostream>
 #include <math.h>
-#include <sstream>
-#include <string>
+#include <vector>
 using namespace std;
 
+// lightweight pair structure
+// used to store input values together in a vector
+namespace Smokes {
+  struct Pair {
+    unsigned int a, b;
+    // constructor to set the tuple values
+    Pair(unsigned int x, unsigned int y):a(x), b(y) {};
+
+    private:
+      // prevent use of default constructor
+      Pair(){};
+  };
+}
+
 int main(void) {
-	int n=0, k=0, a=0, b=0;
-	ifstream in_file;
-	string line;
+  unsigned int n=0, k=0;
+  std::vector<Smokes::Pair> inputs;
 
-	in_file.open("input.in");
+  while(cin >> n >> k)
+    inputs.push_back(Smokes::Pair(n,k));
 
-	if(!in_file.is_open())
-		cout << "Unable to open file." << endl;
+  for(auto &it: inputs)
+    cout << round(it.a+(it.a/it.b)+(ceil(it.a/it.b)/it.b)) << endl;
 
-	while(getline(in_file, line)) {
-		istringstream iss(line);
-		iss >> n;
-		iss >> k;
-
-		a = floor(n/k);
-		b = floor((n/k)/k);
-
-		cout << n+a+b << endl;
-	}
-
-	return 0;
+  return 0;
 }
