@@ -1,19 +1,30 @@
-#include <stdio.h>
-#include <string>
 #include <fstream>
+#include <iostream>
+#include <math.h>
+#include <sstream>
+#include <string>
 using namespace std;
 
 int main(void) {
-	int n=0, k=0;
+	int n=0, k=0, a=0, b=0;
 	ifstream in_file;
-	string cont;
+	string line;
 
-	if(!in_file.open("input.in"))
-		printf("Unable to open file.\n");
+	in_file.open("input.in");
 
-	while(getline(in_file, cont)) {
-		stringstream(cont) >> n;
-		stringstream(cont) >> k;
+	if(!in_file.is_open())
+		cout << "Unable to open file." << endl;
+
+	while(getline(in_file, line)) {
+		istringstream iss(line);
+		iss >> n;
+		iss >> k;
+
+		a = floor(n/k);
+		b = floor((n/k)/k);
+
+		cout << n+a+b << endl;
+	}
 
 	return 0;
 }
